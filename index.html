@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Alecita 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            margin: 0; min-height: 100vh;
+            font-family: 'Playfair Display', serif;
+            background: radial-gradient(circle at top, #fff5f8, #f8cdda);
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
+
+        /* PANTALLA DE INICIO - BOTÓN HORIZONTAL */
+        #welcome-screen {
+            position: fixed; inset: 0; background: #fff5f8;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; z-index: 1000; transition: opacity 1s ease;
+        }
+
+        .picame-btn {
+            padding: 18px 50px; 
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2em; 
+            background: #ff4081; 
+            color: white; 
+            border: none;
+            border-radius: 50px; /* Forma de cápsula horizontal */
+            cursor: pointer; 
+            box-shadow: 0 10px 25px rgba(255, 64, 129, 0.4);
+            transition: all 0.3s ease;
+            text-align: center;
+            /* Eliminamos cualquier rotación para que sea horizontal */
+            transform: rotate(0deg); 
+        }
+
+        .picame-btn:hover {
+            transform: scale(1.05);
+            background: #f50057;
+        }
+
+        /* ANIMACIÓN DE PULSO PARA EL BOTÓN HORIZONTAL */
+        @keyframes pulse-rect {
+            0% { box-shadow: 0 0 0 0 rgba(255, 64, 129, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 64, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 64, 129, 0); }
+        }
+        .picame-btn { animation: pulse-rect 2s infinite; }
+
+        /* PÉTALOS DE FONDO */
+        .petal-bg {
+            position: absolute; background-color: #ffc0cb; border-radius: 150% 0 150% 0;
+            opacity: 0.6; z-index: 1; animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* CARTA INICIAL */
+        .card {
+            display: none; background: rgba(255, 255, 255, 0.98); 
+            max-width: 650px; width: 90%; border-radius: 30px; padding: 40px; 
+            box-shadow: 0 30px 60px rgba(194, 24, 91, 0.2);
+            text-align: center; z-index: 500; position: relative; 
+            opacity: 0; transition: opacity 1.5s ease; max-height: 85vh; overflow-y: auto;
+        }
+        h1 { font-family: 'Great Vibes', cursive; font-size: 3em; color: #c2185b; margin-bottom: 20px; }
+        .letter-content { 
+            font-family: 'Dancing Script', cursive; font-size: 1.35em; 
+            line-height: 1.5; color: #444; white-space: pre-line; 
+            margin-bottom: 30px; text-align: center;
+        }
+        
+        /* BOTÓN DE CORAZÓN (ESTE SE QUEDA DENTRO DE LA CARTA) */
+        .heart-btn {
+            width: 65px; height: 65px; background: #ff4081; position: relative;
+            transform: rotate(-45deg); cursor: pointer; animation: heart-pulse 1.5s infinite; margin: 20px auto;
+        }
+        .heart-btn::before, .heart-btn::after { content: ""; width: 65px; height: 65px; background: #ff4081; border-radius: 50%; position: absolute; }
+        .heart-btn::before { top: -32px; left: 0; } .heart-btn::after { left: 32px; top: 0; }
+        @keyframes heart-pulse { 0%, 100% { transform: rotate(-45deg) scale(1); } 50% { transform: rotate(-45deg) scale(1.15); } }
+
+        /* RESTO DEL CÓDIGO (RAMO Y FOTOS) */
+        #bouquet-container { display: none; position: fixed; inset: 0; background: linear-gradient(to bottom, #fdfcfb, #e2d1c3); justify-content: center; align-items: flex-end; z-index: 200; }
+        .titulo-final { color: #ad1457; position: absolute; top: 5%; width: 100%; text-align: center; font-family: 'Great Vibes', cursive; font-size: 3.8em; z-index: 300; }
+        .flowers-wrap { position: relative; margin-bottom: 2vh; display: flex; justify-content: center; align-items: flex-end; height: 95vh; width: 100%; }
+        .photo-frame { position: absolute; width: 32vmin; background: white; padding: 1.5vmin; padding-bottom: 5vmin; box-shadow: 0 15px 40px rgba(0,0,0,0.18); z-index: 50; animation: floatPhoto 4.5s ease-in-out infinite alternate; border-radius: 4px; }
+        .photo-frame img { width: 100%; height: 28vmin; object-fit: cover; border: 1px solid #f0f0f0; }
+        .big-heart { position: absolute; top: -4vmin; left: 50%; transform: translateX(-50%); font-size: 7vmin; z-index: 100; animation: heartThrob 2.5s infinite alternate; }
+        @keyframes heartThrob { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.2); } }
+        @keyframes floatPhoto { from { transform: translateY(0) rotate(var(--rot)); } to { transform: translateY(-20px) rotate(var(--rot)); } }
+        .foto1 { top: 10%; left: 3%; --rot: -7deg; }
+        .foto2 { top: 12%; right: 3%; --rot: 8deg; }
+        .foto3 { bottom: 15%; left: 3%; --rot: 5deg; }
+        .foto4 { bottom: 18%; right: 3%; --rot: -9deg; }
+        .cone { position: absolute; bottom: 5vmin; width: 42vmin; height: 46vmin; background: linear-gradient(135deg, #ffffff 0%, #fdf1f5 100%); clip-path: polygon(20% 100%, 80% 100%, 100% 20%, 85% 0%, 15% 0%, 0% 20%); z-index: 20; }
+        .flower { position: absolute; bottom: 3vmin; transform-origin: bottom center; z-index: 10; }
+        .flower--1 { transform: rotate(-18deg); } .flower--2 { transform: rotate(0deg); } .flower--3 { transform: rotate(18deg); }
+        .flower__line { width: 1.4vmin; height: 55vmin; background: linear-gradient(to top, #2d5a27, #4caf50); border-radius: 10px; animation: grow 3s ease-out backwards; }
+        .flower__leafs { position: relative; animation: bloom 2s 1.5s backwards; }
+        .flower__petal { position: absolute; bottom: 0; left: 50%; width: 13vmin; height: 16vmin; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform-origin: bottom center; box-shadow: inset 0 0 3vmin rgba(0,0,0,0.1); }
+        .flower--1 .flower__petal { background: #d81b60; } .flower--2 .flower__petal { background: #ff4081; } .flower--3 .flower__petal { background: #c2185b; }
+        .flower__petal--1 { transform: translate(-10%, 1%) rotateY(40deg) rotateX(-45deg); }
+        .flower__petal--2 { transform: translate(-50%, -4%) rotateX(35deg); }
+        .flower__petal--3 { transform: translate(-90%, 1%) rotateY(45deg) rotateX(45deg); }
+        .flower__center { position: absolute; left: -2.5vmin; top: -3.5vmin; width: 5vmin; height: 3vmin; background: #ffca28; border-radius: 50%; }
+        .bow { position: absolute; bottom: 18vmin; z-index: 40; width: 9vmin; height: 3.5vmin; background: #ad1457; border-radius: 50px; }
+        .bow::before, .bow::after { content: ""; position: absolute; width: 6vmin; height: 6vmin; border: 1.5vmin solid #ad1457; border-radius: 50%; top: -1.5vmin; }
+        .bow::before { left: -4vmin; } .bow::after { right: -4vmin; }
+        @keyframes grow { from { height: 0; } }
+        @keyframes bloom { from { transform: scale(0); opacity: 0; } }
+    </style>
+</head>
+<body>
+
+    <div id="welcome-screen">
+        <h2 style="font-family: 'Great Vibes', cursive; color: #c2185b; font-size: 2.8em; margin-bottom: 25px;">Para Alecita...</h2>
+        <button class="picame-btn" onclick="iniciarTodo()">Pícame 💖</button>
+    </div>
+
+    <div id="particles-container"></div>
+
+    <audio id="miMusica" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="card" id="card">
+        <h1>Mi Alecita:</h1>
+        <div class="letter-content">
+            Hoy el tiempo se detiene un instante,
+            porque el mundo tuvo la fortuna de verte nacer.
+            Y yo, sin saberlo entonces, algún día tendría la suerte
+            de encontrarte y llamarte parte de mi vida.
+
+            Eres de esas personas que no llegan haciendo ruido,
+            pero se quedan haciendo hogar.
+            Tu sonrisa calma, tu voz abraza
+            y tu presencia convierte lo simple en algo especial.
+
+            En tu cumpleaños quiero desearte un año lleno de luz,
+            de sueños que se atrevan a cumplirse
+            y de momentos que te recuerden lo increíble que eres.
+            Que nunca dudes de tu valor,
+            porque iluminas más de lo que imaginas.
+
+            Gracias por existir, por ser tú,
+            por cada instante compartido y por lo que aún no llega.
+            Si me permites, yo quiero seguir caminando a tu lado,
+            celebrando tus logros, cuidando tus días tristes
+            y sonriendo contigo en los felices.
+
+            Feliz cumpleaños, Alecita.
+            Que la vida te trate con la misma belleza
+            con la que tú llegaste a la mía.
+
+            Con todo mi cariño ❤️
+        </div>
+        <div class="heart-btn" onclick="verRamo()"></div>
+    </div>
+
+    <div id="bouquet-container">
+        <div class="titulo-final">¡Feliz Cumpleaños, Mi Vida! 💖</div>
+        <div class="flowers-wrap">
+            <div class="photo-frame foto1"><span class="big-heart">❤️</span><img src="foto1.jpg"></div>
+            <div class="photo-frame foto2"><span class="big-heart">💖</span><img src="foto2.jpg"></div>
+            <div class="photo-frame foto3"><span class="big-heart">💝</span><img src="foto3.jpg"></div>
+            <div class="photo-frame foto4"><span class="big-heart">💗</span><img src="foto4.jpg"></div>
+            <div class="cone"></div>
+            <div class="flower flower--1"><div class="flower__leafs"><div class="flower__petal flower__petal--1"></div><div class="flower__petal flower__petal--2"></div><div class="flower__petal flower__petal--3"></div><div class="flower__center"></div></div><div class="flower__line"></div></div>
+            <div class="flower flower--2"><div class="flower__leafs"><div class="flower__petal flower__petal--1"></div><div class="flower__petal flower__petal--2"></div><div class="flower__petal flower__petal--3"></div><div class="flower__center"></div></div><div class="flower__line"></div></div>
+            <div class="flower flower--3"><div class="flower__leafs"><div class="flower__petal flower__petal--1"></div><div class="flower__petal flower__petal--2"></div><div class="flower__petal flower__petal--3"></div><div class="flower__center"></div></div><div class="flower__line"></div></div>
+            <div class="bow"></div>
+        </div>
+    </div>
+
+    <script>
+        function iniciarTodo() {
+            const audio = document.getElementById('miMusica');
+            audio.play();
+
+            document.getElementById('welcome-screen').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('welcome-screen').style.display = 'none';
+                const carta = document.getElementById('card');
+                carta.style.display = 'block';
+                setTimeout(() => { carta.style.opacity = '1'; }, 100);
+            }, 1000);
+
+            createPetals();
+        }
+
+        function verRamo() {
+            document.getElementById("card").style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById("card").style.display = "none";
+                document.getElementById("bouquet-container").style.display = "flex";
+            }, 800);
+        }
+
+        function createPetals() {
+            const container = document.getElementById('particles-container');
+            for (let i = 0; i < 25; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal-bg';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.width = Math.random() * 10 + 15 + 'px';
+                petal.style.height = petal.style.width;
+                petal.style.animationDuration = Math.random() * 5 + 6 + 's';
+                container.appendChild(petal);
+            }
+        }
+    </script>
+</body>
+</html>
