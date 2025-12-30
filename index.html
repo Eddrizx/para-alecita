@@ -1,1 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Alecita 💖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            margin: 0; min-height: 100vh;
+            font-family: 'Playfair Display', serif;
+            background: radial-gradient(circle at top, #fff5f8, #f8cdda);
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
+
+        /* PÉTALOS DE FONDO */
+        .petal-bg {
+            position: absolute; background-color: #ffc0cb; border-radius: 150% 0 150% 0;
+            opacity: 0.6; z-index: 1; animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* CARTA */
+        .card {
+            background: rgba(255, 255, 255, 0.98); max-width: 600px; width: 90%;
+            border-radius: 30px; padding: 40px; box-shadow: 0 30px 60px rgba(194, 24, 91, 0.2);
+            text-align: center; z-index: 500; position: relative; max-height: 90vh;
+            overflow-y: auto; transition: all 1s ease;
+        }
+        h1 { font-family: 'Great Vibes', cursive; font-size: 3.5em; color: #c2185b; margin-bottom: 20px; }
+        .letter-content { font-family: 'Dancing Script', cursive; font-size: 1.4em; line-height: 1.6; color: #444; white-space: pre-line; margin-bottom: 30px; }
+        
+        .heart-btn {
+            width: 60px; height: 60px; background: #ff4081; position: relative;
+            transform: rotate(-45deg); cursor: pointer; animation: pulse 1.5s infinite; margin: 20px auto;
+        }
+        .heart-btn::before, .heart-btn::after { content: ""; width: 60px; height: 60px; background: #ff4081; border-radius: 50%; position: absolute; }
+        .heart-btn::before { top: -30px; left: 0; } .heart-btn::after { left: 30px; top: 0; }
+        @keyframes pulse { 0%, 100% { transform: rotate(-45deg) scale(1); } 50% { transform: rotate(-45deg) scale(1.15); } }
+
+        /* SECCIÓN RAMO */
+        #bouquet-container {
+            display: none; position: fixed; inset: 0;
+            background: linear-gradient(to bottom, #fdfcfb, #e2d1c3);
+            justify-content: center; align-items: flex-end; z-index: 200;
+        }
+        .titulo-final {
+            color: #ad1457; position: absolute; top: 5%; width: 100%;
+            text-align: center; font-family: 'Great Vibes', cursive; font-size: 3.5em; z-index: 300;
+        }
+
+        .flowers-wrap {
+            position: relative; margin-bottom: 5vh; display: flex;
+            justify-content: center; align-items: flex-end; height: 85vh; width: 100%;
+        }
+
+        /* FOTOS */
+        .photo-frame {
+            position: absolute; width: 25vmin; background: white; padding: 1.2vmin; padding-bottom: 4vmin;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15); z-index: 50;
+            animation: floatPhoto 4s ease-in-out infinite alternate; border-radius: 2px;
+        }
+        .photo-frame img { width: 100%; height: 20vmin; object-fit: cover; }
+        @keyframes floatPhoto { from { transform: translateY(0) rotate(var(--rot)); } to { transform: translateY(-15px) rotate(var(--rot)); } }
+        .foto1 { top: 12%; left: 8%; --rot: -8deg; }
+        .foto2 { top: 15%; right: 8%; --rot: 10deg; }
+        .foto3 { top: 45%; left: 5%; --rot: 5deg; }
+        .foto4 { top: 50%; right: 5%; --rot: -12deg; }
+
+        /* RAMO / TARRO - AHORA ADELANTE */
+        .cone {
+            position: absolute; bottom: 5vmin; width: 38vmin; height: 42vmin;
+            background: linear-gradient(135deg, #ffffff 0%, #f9f1f4 100%);
+            clip-path: polygon(20% 100%, 80% 100%, 100% 20%, 85% 0%, 15% 0%, 0% 20%);
+            z-index: 100; /* Aumentado para estar por delante de flores y tallos */
+            opacity: 0.95;
+        }
+        
+        .flower { position: absolute; bottom: 2vmin; transform-origin: bottom center; z-index: 30; }
+        .flower--1 { transform: rotate(-18deg); } 
+        .flower--2 { transform: rotate(0deg); } 
+        .flower--3 { transform: rotate(18deg); }
+        
+        /* TALLO ATRÁS */
+        .flower__line { 
+            width: 1.2vmin; height: 55vmin; 
+            background: linear-gradient(to top, #2d5a27, #4caf50); 
+            border-radius: 10px; 
+            animation: grow 3s ease-out backwards;
+            position: relative;
+            z-index: 1; 
+        }
+
+        /* PÉTALOS ATRÁS DEL TARRO PERO DELANTE DEL TALLO */
+        .flower__leafs { 
+            position: absolute; 
+            top: 0; 
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bloom 2s 1.5s backwards; 
+            z-index: 10; 
+        }
+
+        .flower__petal {
+            position: absolute; bottom: 0; left: 50%; width: 11vmin; height: 14vmin;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform-origin: bottom center;
+            box-shadow: inset 0 0 3vmin rgba(0,0,0,0.2);
+        }
+        .flower--1 .flower__petal { background: #d81b60; } 
+        .flower--2 .flower__petal { background: #ff4081; } 
+        .flower--3 .flower__petal { background: #c2185b; }
+        .flower__petal--1 { transform: translate(-10%, 1%) rotateY(40deg) rotateX(-45deg); }
+        .flower__petal--2 { transform: translate(-50%, -4%) rotateX(35deg); }
+        .flower__petal--3 { transform: translate(-90%, 1%) rotateY(45deg) rotateX(45deg); }
+        .flower__center { position: absolute; left: -2.2vmin; top: -3vmin; width: 4.5vmin; height: 2.5vmin; background: #ffca28; border-radius: 50%; }
+        
+        /* LAZO ADELANTE */
+        .bow { position: absolute; bottom: 18vmin; z-index: 110; width: 8vmin; height: 3vmin; background: #ad1457; border-radius: 50px; }
+        .bow::before, .bow::after { content: ""; position: absolute; width: 5vmin; height: 5vmin; border: 1.2vmin solid #ad1457; border-radius: 50%; top: -1.3vmin; }
+        .bow::before { left: -3.5vmin; } .bow::after { right: -3.5vmin; }
+
+        @keyframes grow { from { height: 0; } }
+        @keyframes bloom { from { transform: scale(0); opacity: 0; } }
+
+    </style>
+</head>
+<body>
+
+    <div id="particles-container"></div>
+
+    <div class="card" id="card">
+        <h1>Para Alecita</h1>
+        <div class="letter-content">
+            Hoy el tiempo se detiene un instante,
+            porque el mundo tuvo la fortuna de verte nacer.
+            Y yo, sin saberlo entonces, algún día tendría la suerte
+            de encontrarte y llamarte parte de mi vida.
+
+            Eres de esas personas que no llegan haciendo ruido,
+            pero se quedan haciendo hogar.
+            Tu sonrisa calma, tu voz abraza
+            y tu presencia convierte lo simple en algo especial.
+
+            En tu cumpleaños quiero desearte un año lleno de luz,
+            de sueños que se atrevan a cumplirse
+            y de momentos que te recuerden lo increíble que eres.
+            Que nunca dudes de tu valor,
+            porque iluminas más de lo que imaginas.
+
+            Gracias por existir, por ser tú,
+            por cada instante compartido y por lo que aún no llega.
+            Si me permites, yo quiero seguir caminando a tu lado,
+            celebrando tus logros, cuidando tus días tristes
+            y sonriendo contigo en los felices.
+
+            Feliz cumpleaños, Alecita.
+            Que la vida te trate con la misma belleza
+            con la que tú llegaste a la mía.
+        </div>
+        <div class="heart-btn" onclick="startSurprise()"></div>
+    </div>
+
+    <div id="bouquet-container">
+        <div class="titulo-final">¡Feliz Cumpleaños! 💖</div>
+        
+        <div class="flowers-wrap">
+            <div class="photo-frame foto1"><img src="foto1.jpg" alt="Foto 1"></div>
+            <div class="photo-frame foto2"><img src="foto2.jpg" alt="Foto 2"></div>
+            <div class="photo-frame foto3"><img src="foto3.jpg" alt="Foto 3"></div>
+            <div class="photo-frame foto4"><img src="foto4.jpg" alt="Foto 4"></div>
+
+            <div class="cone"></div>
+            
+            <div class="flower flower--1">
+                <div class="flower__line"></div>
+                <div class="flower__leafs">
+                    <div class="flower__petal flower__petal--1"></div>
+                    <div class="flower__petal flower__petal--2"></div>
+                    <div class="flower__petal flower__petal--3"></div>
+                    <div class="flower__center"></div>
+                </div>
+            </div>
+
+            <div class="flower flower--2">
+                <div class="flower__line"></div>
+                <div class="flower__leafs">
+                    <div class="flower__petal flower__petal--1"></div>
+                    <div class="flower__petal flower__petal--2"></div>
+                    <div class="flower__petal flower__petal--3"></div>
+                    <div class="flower__center"></div>
+                </div>
+            </div>
+
+            <div class="flower flower--3">
+                <div class="flower__line"></div>
+                <div class="flower__leafs">
+                    <div class="flower__petal flower__petal--1"></div>
+                    <div class="flower__petal flower__petal--2"></div>
+                    <div class="flower__petal flower__petal--3"></div>
+                    <div class="flower__center"></div>
+                </div>
+            </div>
+
+            <div class="bow"></div>
+        </div>
+    </div>
+
+    <script>
+        function createPetals() {
+            const container = document.getElementById('particles-container');
+            for (let i = 0; i < 20; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal-bg';
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.width = Math.random() * 12 + 8 + 'px';
+                petal.style.height = petal.style.width;
+                petal.style.animationDuration = Math.random() * 5 + 5 + 's';
+                container.appendChild(petal);
+            }
+        }
+        createPetals();
+
+        function startSurprise() {
+            document.getElementById("card").style.opacity = "0";
+            setTimeout(() => {
+                document.getElementById("card").style.display = "none";
+                document.getElementById("bouquet-container").style.display = "flex";
+            }, 800);
+        }
+    </script>
+</body>
+</html>
 
