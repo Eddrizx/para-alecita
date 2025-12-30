@@ -2,21 +2,21 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Para Alecita 💖</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Great+Vibes&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            margin: 0; min-height: 100vh;
+            margin: 0; height: 100vh; width: 100vw;
             font-family: 'Playfair Display', serif;
             background: radial-gradient(circle at top, #fff5f8, #f8cdda);
             display: flex; justify-content: center; align-items: center;
-            overflow: hidden;
+            overflow: hidden; position: fixed; /* Evita rebote en iOS */
         }
 
-        /* PANTALLA DE INICIO - BOTÓN HORIZONTAL */
+        /* PANTALLA DE INICIO */
         #welcome-screen {
             position: fixed; inset: 0; background: #fff5f8;
             display: flex; flex-direction: column; justify-content: center;
@@ -24,35 +24,19 @@
         }
 
         .picame-btn {
-            padding: 18px 50px; 
-            font-family: 'Dancing Script', cursive;
-            font-size: 2.2em; 
-            background: #ff4081; 
-            color: white; 
-            border: none;
-            border-radius: 50px; /* Forma de cápsula horizontal */
-            cursor: pointer; 
-            box-shadow: 0 10px 25px rgba(255, 64, 129, 0.4);
-            transition: all 0.3s ease;
-            text-align: center;
-            /* Eliminamos cualquier rotación para que sea horizontal */
-            transform: rotate(0deg); 
+            padding: 15px 40px; font-family: 'Dancing Script', cursive;
+            font-size: 1.8em; background: #ff4081; color: white; border: none;
+            border-radius: 50px; cursor: pointer; box-shadow: 0 10px 20px rgba(255, 64, 129, 0.3);
+            animation: pulse-rect 2s infinite;
         }
 
-        .picame-btn:hover {
-            transform: scale(1.05);
-            background: #f50057;
-        }
-
-        /* ANIMACIÓN DE PULSO PARA EL BOTÓN HORIZONTAL */
         @keyframes pulse-rect {
-            0% { box-shadow: 0 0 0 0 rgba(255, 64, 129, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(255, 64, 129, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 64, 129, 0); }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 64, 129, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 64, 129, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 64, 129, 0); }
         }
-        .picame-btn { animation: pulse-rect 2s infinite; }
 
-        /* PÉTALOS DE FONDO */
+        /* PÉTALOS */
         .petal-bg {
             position: absolute; background-color: #ffc0cb; border-radius: 150% 0 150% 0;
             opacity: 0.6; z-index: 1; animation: fall linear infinite;
@@ -62,65 +46,81 @@
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
         }
 
-        /* CARTA INICIAL */
+        /* CARTA RESPONSIVA */
         .card {
             display: none; background: rgba(255, 255, 255, 0.98); 
-            max-width: 650px; width: 90%; border-radius: 30px; padding: 40px; 
-            box-shadow: 0 30px 60px rgba(194, 24, 91, 0.2);
+            width: 90%; max-width: 500px; border-radius: 20px; padding: 25px; 
+            box-shadow: 0 20px 40px rgba(194, 24, 91, 0.15);
             text-align: center; z-index: 500; position: relative; 
-            opacity: 0; transition: opacity 1.5s ease; max-height: 85vh; overflow-y: auto;
+            opacity: 0; transition: opacity 1s ease; max-height: 80vh; overflow-y: auto;
         }
-        h1 { font-family: 'Great Vibes', cursive; font-size: 3em; color: #c2185b; margin-bottom: 20px; }
+        h1 { font-family: 'Great Vibes', cursive; font-size: 2.5em; color: #c2185b; margin-bottom: 15px; }
         .letter-content { 
-            font-family: 'Dancing Script', cursive; font-size: 1.35em; 
-            line-height: 1.5; color: #444; white-space: pre-line; 
-            margin-bottom: 30px; text-align: center;
+            font-family: 'Dancing Script', cursive; font-size: 1.1em; 
+            line-height: 1.4; color: #444; white-space: pre-line; 
+            margin-bottom: 20px;
         }
         
-        /* BOTÓN DE CORAZÓN (ESTE SE QUEDA DENTRO DE LA CARTA) */
         .heart-btn {
-            width: 65px; height: 65px; background: #ff4081; position: relative;
-            transform: rotate(-45deg); cursor: pointer; animation: heart-pulse 1.5s infinite; margin: 20px auto;
+            width: 50px; height: 50px; background: #ff4081; position: relative;
+            transform: rotate(-45deg); cursor: pointer; animation: heart-pulse 1.5s infinite; margin: 25px auto 10px;
         }
-        .heart-btn::before, .heart-btn::after { content: ""; width: 65px; height: 65px; background: #ff4081; border-radius: 50%; position: absolute; }
-        .heart-btn::before { top: -32px; left: 0; } .heart-btn::after { left: 32px; top: 0; }
-        @keyframes heart-pulse { 0%, 100% { transform: rotate(-45deg) scale(1); } 50% { transform: rotate(-45deg) scale(1.15); } }
+        .heart-btn::before, .heart-btn::after { content: ""; width: 50px; height: 50px; background: #ff4081; border-radius: 50%; position: absolute; }
+        .heart-btn::before { top: -25px; left: 0; } .heart-btn::after { left: 25px; top: 0; }
+        @keyframes heart-pulse { 0%, 100% { transform: rotate(-45deg) scale(1); } 50% { transform: rotate(-45deg) scale(1.1); } }
 
-        /* RESTO DEL CÓDIGO (RAMO Y FOTOS) */
-        #bouquet-container { display: none; position: fixed; inset: 0; background: linear-gradient(to bottom, #fdfcfb, #e2d1c3); justify-content: center; align-items: flex-end; z-index: 200; }
-        .titulo-final { color: #ad1457; position: absolute; top: 5%; width: 100%; text-align: center; font-family: 'Great Vibes', cursive; font-size: 3.8em; z-index: 300; }
-        .flowers-wrap { position: relative; margin-bottom: 2vh; display: flex; justify-content: center; align-items: flex-end; height: 95vh; width: 100%; }
-        .photo-frame { position: absolute; width: 32vmin; background: white; padding: 1.5vmin; padding-bottom: 5vmin; box-shadow: 0 15px 40px rgba(0,0,0,0.18); z-index: 50; animation: floatPhoto 4.5s ease-in-out infinite alternate; border-radius: 4px; }
-        .photo-frame img { width: 100%; height: 28vmin; object-fit: cover; border: 1px solid #f0f0f0; }
-        .big-heart { position: absolute; top: -4vmin; left: 50%; transform: translateX(-50%); font-size: 7vmin; z-index: 100; animation: heartThrob 2.5s infinite alternate; }
-        @keyframes heartThrob { from { transform: translateX(-50%) scale(1); } to { transform: translateX(-50%) scale(1.2); } }
-        @keyframes floatPhoto { from { transform: translateY(0) rotate(var(--rot)); } to { transform: translateY(-20px) rotate(var(--rot)); } }
-        .foto1 { top: 10%; left: 3%; --rot: -7deg; }
-        .foto2 { top: 12%; right: 3%; --rot: 8deg; }
-        .foto3 { bottom: 15%; left: 3%; --rot: 5deg; }
-        .foto4 { bottom: 18%; right: 3%; --rot: -9deg; }
-        .cone { position: absolute; bottom: 5vmin; width: 42vmin; height: 46vmin; background: linear-gradient(135deg, #ffffff 0%, #fdf1f5 100%); clip-path: polygon(20% 100%, 80% 100%, 100% 20%, 85% 0%, 15% 0%, 0% 20%); z-index: 20; }
-        .flower { position: absolute; bottom: 3vmin; transform-origin: bottom center; z-index: 10; }
-        .flower--1 { transform: rotate(-18deg); } .flower--2 { transform: rotate(0deg); } .flower--3 { transform: rotate(18deg); }
-        .flower__line { width: 1.4vmin; height: 55vmin; background: linear-gradient(to top, #2d5a27, #4caf50); border-radius: 10px; animation: grow 3s ease-out backwards; }
-        .flower__leafs { position: relative; animation: bloom 2s 1.5s backwards; }
-        .flower__petal { position: absolute; bottom: 0; left: 50%; width: 13vmin; height: 16vmin; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform-origin: bottom center; box-shadow: inset 0 0 3vmin rgba(0,0,0,0.1); }
+        /* RAMO Y FOTOS CELULAR */
+        #bouquet-container {
+            display: none; position: fixed; inset: 0;
+            background: linear-gradient(to bottom, #fdfcfb, #e2d1c3);
+            justify-content: center; align-items: flex-end; z-index: 200;
+        }
+        .titulo-final {
+            color: #ad1457; position: absolute; top: 8%; width: 100%;
+            text-align: center; font-family: 'Great Vibes', cursive; font-size: 2.2em; z-index: 300;
+            padding: 0 10px;
+        }
+
+        .flowers-wrap { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: flex-end; }
+
+        /* Ajuste de fotos para celular */
+        .photo-frame {
+            position: absolute; width: 28vmin; background: white; padding: 1vmin; padding-bottom: 4vmin;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 50;
+            animation: floatPhoto 4s ease-in-out infinite alternate; border-radius: 2px;
+        }
+        .photo-frame img { width: 100%; height: 25vmin; object-fit: cover; }
+        .big-heart { position: absolute; top: -5vmin; left: 50%; transform: translateX(-50%); font-size: 6vmin; }
+        
+        .foto1 { top: 18%; left: 5%; --rot: -5deg; }
+        .foto2 { top: 20%; right: 5%; --rot: 5deg; }
+        .foto3 { top: 45%; left: 8%; --rot: 3deg; }
+        .foto4 { top: 48%; right: 8%; --rot: -4deg; }
+
+        /* Ajuste del ramo para celular */
+        .cone { position: absolute; bottom: 2vh; width: 50vmin; height: 55vmin; background: linear-gradient(135deg, #ffffff 0%, #fdf1f5 100%); clip-path: polygon(20% 100%, 80% 100%, 100% 20%, 85% 0%, 15% 0%, 0% 20%); z-index: 20; }
+        .flower { position: absolute; bottom: 5vh; transform-origin: bottom center; z-index: 10; }
+        .flower--1 { transform: rotate(-15deg) translateX(-5vmin); } 
+        .flower--2 { transform: rotate(0deg); } 
+        .flower--3 { transform: rotate(15deg) translateX(5vmin); }
+        .flower__line { width: 1.2vmin; height: 45vh; background: linear-gradient(to top, #2d5a27, #4caf50); border-radius: 10px; }
+        .flower__petal { position: absolute; bottom: 0; left: 50%; width: 15vmin; height: 18vmin; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform-origin: bottom center; }
         .flower--1 .flower__petal { background: #d81b60; } .flower--2 .flower__petal { background: #ff4081; } .flower--3 .flower__petal { background: #c2185b; }
         .flower__petal--1 { transform: translate(-10%, 1%) rotateY(40deg) rotateX(-45deg); }
         .flower__petal--2 { transform: translate(-50%, -4%) rotateX(35deg); }
         .flower__petal--3 { transform: translate(-90%, 1%) rotateY(45deg) rotateX(45deg); }
-        .flower__center { position: absolute; left: -2.5vmin; top: -3.5vmin; width: 5vmin; height: 3vmin; background: #ffca28; border-radius: 50%; }
-        .bow { position: absolute; bottom: 18vmin; z-index: 40; width: 9vmin; height: 3.5vmin; background: #ad1457; border-radius: 50px; }
-        .bow::before, .bow::after { content: ""; position: absolute; width: 6vmin; height: 6vmin; border: 1.5vmin solid #ad1457; border-radius: 50%; top: -1.5vmin; }
-        .bow::before { left: -4vmin; } .bow::after { right: -4vmin; }
-        @keyframes grow { from { height: 0; } }
-        @keyframes bloom { from { transform: scale(0); opacity: 0; } }
+        .flower__center { position: absolute; left: -2vmin; top: -3vmin; width: 4vmin; height: 2.5vmin; background: #ffca28; border-radius: 50%; }
+        .bow { position: absolute; bottom: 18vh; z-index: 40; width: 10vmin; height: 4vmin; background: #ad1457; border-radius: 50px; }
+        .bow::before, .bow::after { content: ""; position: absolute; width: 7vmin; height: 7vmin; border: 1.5vmin solid #ad1457; border-radius: 50%; top: -1.5vmin; }
+        .bow::before { left: -4.5vmin; } .bow::after { right: -4.5vmin; }
+
+        @keyframes floatPhoto { from { transform: translateY(0) rotate(var(--rot)); } to { transform: translateY(-10px) rotate(var(--rot)); } }
     </style>
 </head>
 <body>
 
     <div id="welcome-screen">
-        <h2 style="font-family: 'Great Vibes', cursive; color: #c2185b; font-size: 2.8em; margin-bottom: 25px;">Para Alecita...</h2>
+        <h2 style="font-family: 'Great Vibes', cursive; color: #c2185b; font-size: 2.2em; margin-bottom: 20px;">Para Alecita...</h2>
         <button class="picame-btn" onclick="iniciarTodo()">Pícame 💖</button>
     </div>
 
@@ -165,7 +165,7 @@
     </div>
 
     <div id="bouquet-container">
-        <div class="titulo-final">¡Feliz Cumpleaños, Mi Vida! 💖</div>
+        <div class="titulo-final">¡Feliz Cumpleaños! 💖</div>
         <div class="flowers-wrap">
             <div class="photo-frame foto1"><span class="big-heart">❤️</span><img src="foto1.jpg"></div>
             <div class="photo-frame foto2"><span class="big-heart">💖</span><img src="foto2.jpg"></div>
@@ -183,7 +183,6 @@
         function iniciarTodo() {
             const audio = document.getElementById('miMusica');
             audio.play();
-
             document.getElementById('welcome-screen').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('welcome-screen').style.display = 'none';
@@ -191,7 +190,6 @@
                 carta.style.display = 'block';
                 setTimeout(() => { carta.style.opacity = '1'; }, 100);
             }, 1000);
-
             createPetals();
         }
 
@@ -205,13 +203,13 @@
 
         function createPetals() {
             const container = document.getElementById('particles-container');
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < 15; i++) {
                 const petal = document.createElement('div');
                 petal.className = 'petal-bg';
                 petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.width = Math.random() * 10 + 15 + 'px';
+                petal.style.width = Math.random() * 10 + 10 + 'px';
                 petal.style.height = petal.style.width;
-                petal.style.animationDuration = Math.random() * 5 + 6 + 's';
+                petal.style.animationDuration = Math.random() * 5 + 5 + 's';
                 container.appendChild(petal);
             }
         }
