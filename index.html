@@ -13,7 +13,7 @@
             font-family: 'Playfair Display', serif;
             background: radial-gradient(circle at top, #fff5f8, #f8cdda);
             display: flex; justify-content: center; align-items: center;
-            overflow: hidden; position: fixed; /* Evita rebote en iOS */
+            overflow: hidden; position: fixed;
         }
 
         /* PANTALLA DE INICIO */
@@ -31,90 +31,83 @@
         }
 
         @keyframes pulse-rect {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 64, 129, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 64, 129, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 64, 129, 0); }
-        }
-
-        /* PÉTALOS */
-        .petal-bg {
-            position: absolute; background-color: #ffc0cb; border-radius: 150% 0 150% 0;
-            opacity: 0.6; z-index: 1; animation: fall linear infinite;
-        }
-        @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+            0% { transform: scale(1); }
+            70% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         /* CARTA RESPONSIVA */
         .card {
             display: none; background: rgba(255, 255, 255, 0.98); 
-            width: 90%; max-width: 500px; border-radius: 20px; padding: 25px; 
+            width: 90%; max-width: 450px; border-radius: 20px; padding: 25px; 
             box-shadow: 0 20px 40px rgba(194, 24, 91, 0.15);
             text-align: center; z-index: 500; position: relative; 
-            opacity: 0; transition: opacity 1s ease; max-height: 80vh; overflow-y: auto;
+            opacity: 0; transition: opacity 1s ease; max-height: 85vh; overflow-y: auto;
         }
-        h1 { font-family: 'Great Vibes', cursive; font-size: 2.5em; color: #c2185b; margin-bottom: 15px; }
+        h1 { font-family: 'Great Vibes', cursive; font-size: 2.2em; color: #c2185b; margin-bottom: 10px; }
         .letter-content { 
             font-family: 'Dancing Script', cursive; font-size: 1.1em; 
             line-height: 1.4; color: #444; white-space: pre-line; 
-            margin-bottom: 20px;
         }
         
         .heart-btn {
             width: 50px; height: 50px; background: #ff4081; position: relative;
-            transform: rotate(-45deg); cursor: pointer; animation: heart-pulse 1.5s infinite; margin: 25px auto 10px;
+            transform: rotate(-45deg); cursor: pointer; margin: 25px auto 10px;
         }
         .heart-btn::before, .heart-btn::after { content: ""; width: 50px; height: 50px; background: #ff4081; border-radius: 50%; position: absolute; }
         .heart-btn::before { top: -25px; left: 0; } .heart-btn::after { left: 25px; top: 0; }
-        @keyframes heart-pulse { 0%, 100% { transform: rotate(-45deg) scale(1); } 50% { transform: rotate(-45deg) scale(1.1); } }
 
-        /* RAMO Y FOTOS CELULAR */
+        /* SECCIÓN RAMO Y FOTOS */
         #bouquet-container {
             display: none; position: fixed; inset: 0;
             background: linear-gradient(to bottom, #fdfcfb, #e2d1c3);
-            justify-content: center; align-items: flex-end; z-index: 200;
+            z-index: 200; overflow: hidden;
         }
         .titulo-final {
-            color: #ad1457; position: absolute; top: 8%; width: 100%;
-            text-align: center; font-family: 'Great Vibes', cursive; font-size: 2.2em; z-index: 300;
-            padding: 0 10px;
+            color: #ad1457; position: absolute; top: 5%; width: 100%;
+            text-align: center; font-family: 'Great Vibes', cursive; font-size: 2em; z-index: 300;
         }
 
-        .flowers-wrap { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: flex-end; }
+        .flowers-wrap { 
+            position: relative; width: 100%; height: 100%; 
+            display: flex; justify-content: center; align-items: flex-end; 
+        }
 
-        /* Ajuste de fotos para celular */
+        /* FOTOS CENTRADAS PARA CELULAR */
         .photo-frame {
-            position: absolute; width: 28vmin; background: white; padding: 1vmin; padding-bottom: 4vmin;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 50;
-            animation: floatPhoto 4s ease-in-out infinite alternate; border-radius: 2px;
+            position: absolute; width: 35vmin; background: white; padding: 1vmin; padding-bottom: 4vmin;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1); z-index: 50;
+            border-radius: 2px;
         }
-        .photo-frame img { width: 100%; height: 25vmin; object-fit: cover; }
+        .photo-frame img { width: 100%; height: 30vmin; object-fit: cover; }
         .big-heart { position: absolute; top: -5vmin; left: 50%; transform: translateX(-50%); font-size: 6vmin; }
         
-        .foto1 { top: 18%; left: 5%; --rot: -5deg; }
-        .foto2 { top: 20%; right: 5%; --rot: 5deg; }
-        .foto3 { top: 45%; left: 8%; --rot: 3deg; }
-        .foto4 { top: 48%; right: 8%; --rot: -4deg; }
+        /* POSICIONES PARA QUE SE VEAN BIEN EN EL MEDIO */
+        .foto1 { top: 15%; left: 10%; transform: rotate(-5deg); }
+        .foto2 { top: 15%; right: 10%; transform: rotate(5deg); }
+        .foto3 { top: 40%; left: 5%; transform: rotate(-8deg); }
+        .foto4 { top: 40%; right: 5%; transform: rotate(8deg); }
 
-        /* Ajuste del ramo para celular */
-        .cone { position: absolute; bottom: 2vh; width: 50vmin; height: 55vmin; background: linear-gradient(135deg, #ffffff 0%, #fdf1f5 100%); clip-path: polygon(20% 100%, 80% 100%, 100% 20%, 85% 0%, 15% 0%, 0% 20%); z-index: 20; }
-        .flower { position: absolute; bottom: 5vh; transform-origin: bottom center; z-index: 10; }
-        .flower--1 { transform: rotate(-15deg) translateX(-5vmin); } 
+        /* EL RAMO AJUSTADO */
+        .cone { position: absolute; bottom: -5vh; width: 60vmin; height: 65vmin; background: linear-gradient(135deg, #ffffff 0%, #fdf1f5 100%); clip-path: polygon(20% 100%, 80% 100%, 100% 20%, 85% 0%, 15% 0%, 0% 20%); z-index: 20; opacity: 0.9; }
+        .flower { position: absolute; bottom: 10vh; transform-origin: bottom center; z-index: 10; }
+        .flower--1 { transform: rotate(-15deg); } 
         .flower--2 { transform: rotate(0deg); } 
-        .flower--3 { transform: rotate(15deg) translateX(5vmin); }
-        .flower__line { width: 1.2vmin; height: 45vh; background: linear-gradient(to top, #2d5a27, #4caf50); border-radius: 10px; }
-        .flower__petal { position: absolute; bottom: 0; left: 50%; width: 15vmin; height: 18vmin; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform-origin: bottom center; }
+        .flower--3 { transform: rotate(15deg); }
+        .flower__line { width: 1.5vmin; height: 40vh; background: linear-gradient(to top, #2d5a27, #4caf50); border-radius: 10px; }
+        .flower__petal { position: absolute; bottom: 0; left: 50%; width: 18vmin; height: 22vmin; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; transform-origin: bottom center; }
         .flower--1 .flower__petal { background: #d81b60; } .flower--2 .flower__petal { background: #ff4081; } .flower--3 .flower__petal { background: #c2185b; }
         .flower__petal--1 { transform: translate(-10%, 1%) rotateY(40deg) rotateX(-45deg); }
         .flower__petal--2 { transform: translate(-50%, -4%) rotateX(35deg); }
         .flower__petal--3 { transform: translate(-90%, 1%) rotateY(45deg) rotateX(45deg); }
-        .flower__center { position: absolute; left: -2vmin; top: -3vmin; width: 4vmin; height: 2.5vmin; background: #ffca28; border-radius: 50%; }
-        .bow { position: absolute; bottom: 18vh; z-index: 40; width: 10vmin; height: 4vmin; background: #ad1457; border-radius: 50px; }
-        .bow::before, .bow::after { content: ""; position: absolute; width: 7vmin; height: 7vmin; border: 1.5vmin solid #ad1457; border-radius: 50%; top: -1.5vmin; }
-        .bow::before { left: -4.5vmin; } .bow::after { right: -4.5vmin; }
+        .flower__center { position: absolute; left: -2vmin; top: -3vmin; width: 4.5vmin; height: 3vmin; background: #ffca28; border-radius: 50%; }
+        .bow { position: absolute; bottom: 22vh; z-index: 40; width: 12vmin; height: 5vmin; background: #ad1457; border-radius: 50px; }
+        .bow::before, .bow::after { content: ""; position: absolute; width: 8vmin; height: 8vmin; border: 1.5vmin solid #ad1457; border-radius: 50%; top: -1.5vmin; }
+        .bow::before { left: -5vmin; } .bow::after { right: -5vmin; }
 
-        @keyframes floatPhoto { from { transform: translateY(0) rotate(var(--rot)); } to { transform: translateY(-10px) rotate(var(--rot)); } }
+        /* PÉTALOS DE FONDO */
+        .petal-bg { position: absolute; background-color: #ffc0cb; border-radius: 150% 0 150% 0; opacity: 0.6; z-index: 1; animation: fall linear infinite; }
+        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
     </style>
 </head>
 <body>
@@ -146,15 +139,8 @@
             En tu cumpleaños quiero desearte un año lleno de luz,
             de sueños que se atrevan a cumplirse
             y de momentos que te recuerden lo increíble que eres.
-            Que nunca dudes de tu valor,
-            porque iluminas más de lo que imaginas.
 
-            Gracias por existir, por ser tú,
-            por cada instante compartido y por lo que aún no llega.
-            Si me permites, yo quiero seguir caminando a tu lado,
-            celebrando tus logros, cuidando tus días tristes
-            y sonriendo contigo en los felices.
-
+            Gracias por existir, por ser tú.
             Feliz cumpleaños, Alecita.
             Que la vida te trate con la misma belleza
             con la que tú llegaste a la mía.
@@ -171,6 +157,7 @@
             <div class="photo-frame foto2"><span class="big-heart">💖</span><img src="foto2.jpg"></div>
             <div class="photo-frame foto3"><span class="big-heart">💝</span><img src="foto3.jpg"></div>
             <div class="photo-frame foto4"><span class="big-heart">💗</span><img src="foto4.jpg"></div>
+            
             <div class="cone"></div>
             <div class="flower flower--1"><div class="flower__leafs"><div class="flower__petal flower__petal--1"></div><div class="flower__petal flower__petal--2"></div><div class="flower__petal flower__petal--3"></div><div class="flower__center"></div></div><div class="flower__line"></div></div>
             <div class="flower flower--2"><div class="flower__leafs"><div class="flower__petal flower__petal--1"></div><div class="flower__petal flower__petal--2"></div><div class="flower__petal flower__petal--3"></div><div class="flower__center"></div></div><div class="flower__line"></div></div>
@@ -182,7 +169,7 @@
     <script>
         function iniciarTodo() {
             const audio = document.getElementById('miMusica');
-            audio.play();
+            audio.play().catch(e => console.log("Error audio"));
             document.getElementById('welcome-screen').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('welcome-screen').style.display = 'none';
@@ -197,7 +184,7 @@
             document.getElementById("card").style.opacity = "0";
             setTimeout(() => {
                 document.getElementById("card").style.display = "none";
-                document.getElementById("bouquet-container").style.display = "flex";
+                document.getElementById("bouquet-container").style.display = "block";
             }, 800);
         }
 
@@ -207,9 +194,9 @@
                 const petal = document.createElement('div');
                 petal.className = 'petal-bg';
                 petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.width = Math.random() * 10 + 10 + 'px';
-                petal.style.height = petal.style.width;
-                petal.style.animationDuration = Math.random() * 5 + 5 + 's';
+                petal.style.width = '15px';
+                petal.style.height = '15px';
+                petal.style.animationDuration = Math.random() * 3 + 4 + 's';
                 container.appendChild(petal);
             }
         }
